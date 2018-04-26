@@ -2,20 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/home"
             android:icon="@drawable/ic_launcher_foreground"
-            android:title="importt" />
+            android:fontFamily="@font/ubuntu_light"
+            android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/update_add"
             android:icon="@drawable/ic_launcher_foreground"
-            android:title="gallery" />
+            android:fontFamily="@font/ubuntu_light"
+            android:title="Update/ Add new excercise" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/view_data"
             android:icon="@drawable/ic_launcher_foreground"
-            android:title="slideshow" />
+            android:fontFamily="@font/ubuntu_light"
+            android:title="View Data" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/edit"
             android:icon="@drawable/ic_launcher_foreground"
-            android:title="tools" />
+            android:fontFamily="@font/ubuntu_light"
+            android:title="Edit" />
+        <item
+            android:id="@+id/pr"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:fontFamily="@font/ubuntu_light"
+            android:title="PR's" />
     </group>
 </menu>

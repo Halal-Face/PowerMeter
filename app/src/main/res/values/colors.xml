@@ -8,5 +8,6 @@
     <color name="shade3">#FFB5A6</color>
     <color name="shade4">#FF9683</color>
     <color name="shade5">#FF775F</color>
+    <color name ="BLACK">#000000</color>
 
 </resources>

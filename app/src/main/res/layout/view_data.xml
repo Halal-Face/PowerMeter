@@ -48,13 +48,12 @@
                             android:layout_height="wrap_content"
 
                             android:fontFamily="@font/ubuntu_light"
-                            android:text="PowerMeter"
+                            android:text="View your data"
                             android:textAlignment="center"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="30sp"
                             tools:layout_editor_absoluteX="162dp"
                             tools:layout_editor_absoluteY="0dp" />
-
                     </LinearLayout>
 
                 </FrameLayout>

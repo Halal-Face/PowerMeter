@@ -10,13 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class UpdateAdd extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.update_add);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,40 +35,31 @@ public class MainActivity extends AppCompatActivity {
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
-                        //System.out.println("MENU ITEM CLICKED " +menuItem.getGroupId());
-
-//                        Intent intent = new Intent(this, DisplayMessageActivity.class);
-//                        EditText editText = (EditText) findViewById(R.id.editText);
-//                        String message = editText.getText().toString();
-//                        intent.putExtra(EXTRA_MESSAGE, message);
-//                        startActivity(intent);
                         Intent intent;
-                        intent = new Intent(MainActivity.this, MainActivity.class);
+                        intent = new Intent(UpdateAdd.this, MainActivity.class);
                         switch (menuItem.getItemId()) {
                             case R.id.home:
                                 System.out.println("MENU ITEM CLICKED " +"home" );
-
+                                intent = new Intent(UpdateAdd.this, MainActivity.class);
+                                break;
                             case R.id.update_add:
                                 System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(MainActivity.this, UpdateAdd.class);
-                                break;
+                                intent = new Intent(UpdateAdd.this, UpdateAdd.class);
+                                return true;
 
                             case R.id.view_data:
                                 System.out.println("MENU ITEM CLICKED " +"view_data");
-                                intent = new Intent(MainActivity.this, ViewData.class);
+                                intent = new Intent(UpdateAdd.this, ViewData.class);
                                 break;
 
                             case R.id.edit:
                                 System.out.println("MENU ITEM CLICKED " +"edit");
-                                intent = new Intent(MainActivity.this, Edit.class);
+                                intent = new Intent(UpdateAdd.this, Edit.class);
                                 break;
 
                             case R.id.pr:
                                 System.out.println("MENU ITEM CLICKED " +"pr");
-                                intent = new Intent(MainActivity.this, Pr.class);
+                                intent = new Intent(UpdateAdd.this, Pr.class);
                                 break;
                         }
                         startActivity(intent);
