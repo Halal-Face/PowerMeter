@@ -6,13 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="384dp"
+            tools:layout_editor_absoluteY="39dp">
+
+            <android.support.v4.widget.DrawerLayout
+                android:id="@+id/drawer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
+
+                <FrameLayout
+                    android:id="@+id/content_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.Toolbar
+                            android:id="@+id/toolbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="?attr/colorPrimary"
+                            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/ubuntu_light"
+                            android:text="PowerMeter"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat"
+                            android:textSize="30sp"
+                            tools:layout_editor_absoluteX="162dp"
+                            tools:layout_editor_absoluteY="0dp" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+                <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+                <FrameLayout
+                    android:id="@+id/content_frame2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+                <android.support.design.widget.NavigationView
+                    android:id="@+id/nav_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:fitsSystemWindows="true"
+                    app:menu="@menu/drawer_view" />
+
+            </android.support.v4.widget.DrawerLayout>
+
+        </LinearLayout>
+
+        <!-- Use DrawerLayout as root container for activity -->
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
