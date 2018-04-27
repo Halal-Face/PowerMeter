@@ -13,20 +13,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Edit extends AppCompatActivity {
+public class EditDb extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     DataBaseHelperM mDataBaseHelperM;
-    ListView mListView;
+    Button btnUpdate, btnDelete;
+    EditText editText;
+    String item;
+    int itemID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit);
+        setContentView(R.layout.edit_db);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,73 +53,70 @@ public class Edit extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         Intent intent;
-                        intent = new Intent(Edit.this, MainActivity.class);
+                        intent = new Intent(EditDb.this, MainActivity.class);
                         switch (menuItem.getItemId()) {
                             case R.id.home:
                                 System.out.println("MENU ITEM CLICKED " +"home" );
-                                intent = new Intent(Edit.this, MainActivity.class);
+                                intent = new Intent(EditDb.this, MainActivity.class);
                                 break;
                             case R.id.update_add:
                                 System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(Edit.this, UpdateAdd.class);
+                                intent = new Intent(EditDb.this, UpdateAdd.class);
                                 break;
 
                             case R.id.view_data:
                                 System.out.println("MENU ITEM CLICKED " +"view_data");
-                                intent = new Intent(Edit.this, ViewData.class);
+                                intent = new Intent(EditDb.this, ViewData.class);
                                 break;
 
                             case R.id.edit:
                                 System.out.println("MENU ITEM CLICKED " +"edit");
-                                intent = new Intent(Edit.this, Edit.class);
-                                return true;
+                                intent = new Intent(EditDb.this, Edit.class);
+                                break;
 
                             case R.id.pr:
                                 System.out.println("MENU ITEM CLICKED " +"pr");
-                                intent = new Intent(Edit.this, Pr.class);
+                                intent = new Intent(EditDb.this, Pr.class);
                                 break;
                         }
                         startActivity(intent);
                         return true;
                     }
                 });
-        mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
-        mListView = findViewById(R.id.listView);
 
-        populateListView();
+            btnUpdate = findViewById(R.id.update);
+            btnDelete = findViewById(R.id.delete);
+            editText = findViewById(R.id.edit);
+            mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
+            Intent receiveIntent = getIntent();
+            item = receiveIntent.getStringExtra("item");
+            itemID = receiveIntent.getIntExtra("id", -1);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            editText.setText(item);
+
+            btnUpdate.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    String newItem = editText.getText().toString();
+                    if(newItem!=null && !newItem.isEmpty()){
+                        toastM("Changing " + item +" to " + newItem);
+                        mDataBaseHelperM.updateItem(newItem, itemID, item);
+                    }
+                }
+            });
+        btnDelete.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Cursor data = mDataBaseHelperM.getItemID(item);
-                int itemID = -1;
-                while(data.moveToNext()){
-                    itemID = data.getInt(0);
-                }
-                if(itemID>-1){
-                    Intent editDbIntent = new Intent(Edit.this, EditDb.class);
-                    editDbIntent.putExtra("id", itemID);
-                    editDbIntent.putExtra("item", item);
-                    startActivity(editDbIntent);
-
-                }
+            public void onClick(View v) {
+                mDataBaseHelperM.deleteItem(itemID, item);
+                editText.setText("");
             }
         });
     }
 
-    public void populateListView(){
-        //get iterator for data
-        Cursor data = mDataBaseHelperM.getData();
-        //add the data from to the arraylsit
-        ArrayList<String> listData = new ArrayList<>();
-        while(data.moveToNext()){
-            listData.add(data.getString(1));
-        }
-        //used to populate the listview
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
-        mListView.setAdapter(adapter);
+    private void toastM(String m){
+        Toast.makeText(this, m, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -121,18 +125,6 @@ public class Edit extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.update_add:
-                System.out.println("MENU ITEM CLICKED " );
-                return true;
-            case R.id.view_data:
-                //do something
-                return true;
-            case R.id.edit:
-                //do something
-                return true;
-            case R.id.pr:
-                //do something
                 return true;
         }
         return super.onOptionsItemSelected(item);

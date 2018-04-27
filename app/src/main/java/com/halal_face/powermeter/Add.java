@@ -87,7 +87,7 @@ public class Add extends AppCompatActivity {
             public void onClick(View v) {
                 String exercise = edit.getText().toString();
                 if(exercise!=null && !exercise.isEmpty()){
-                    AddData(exercise);
+                    AddData(exercise.replaceAll(" ", "_"));
                 }else{
                     toastM("Please enter an exercise");
                 }

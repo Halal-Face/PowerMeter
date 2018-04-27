@@ -10,7 +10,7 @@
             android:id="@+id/update_add"
             android:icon="@drawable/ic_launcher_foreground"
             android:fontFamily="@font/ubuntu_light"
-            android:title="Update/ Add new excercise" />
+            android:title="Add" />
         <item
             android:id="@+id/view_data"
             android:icon="@drawable/ic_launcher_foreground"

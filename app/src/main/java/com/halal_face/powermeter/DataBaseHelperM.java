@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DataBaseHelperM extends SQLiteOpenHelper {
     private static final String TAG = "DataBaseHelper";
@@ -46,6 +47,30 @@ public class DataBaseHelperM extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor data = db.rawQuery(query, null);
         return data;
+    }
+
+    public Cursor getItemID(String item){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + COL1 + " FROM " + TABLE_NAME +
+                " WHERE " + COL2 + " = '" + item + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    public void updateItem(String newItem, int id, String oldItem){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + TABLE_NAME + " SET " + COL2 +
+                " = '" + newItem +"' WHERE " + COL1 + " = '" +
+                id + "' AND " + COL2 + " = '" + oldItem + "'";
+        db.execSQL(query);
+    }
+    public void deleteItem(int id, String item){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE " +
+                 COL1 + " = '" + id +"'" + " AND " + COL2 +
+                " = '" + item + "'";
+        db.execSQL(query);
+        Log.d(TAG, "QUERY DELETE: " + query);
     }
 
 }
