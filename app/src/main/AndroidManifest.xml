@@ -28,6 +28,9 @@
         <activity android:name=".Pr">
 
         </activity>
+        <activity android:name=".Add">
+
+        </activity>
 
     </application>
 

@@ -1,6 +1,7 @@
 package com.halal_face.powermeter;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,10 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ViewData extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
+    DataBaseHelperM mDataBaseHelperM;
+    ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +75,23 @@ public class ViewData extends AppCompatActivity {
                     }
                 });
 
+        mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
+        mListView = findViewById(R.id.listView);
 
-
+        populateListView();
     }
-
+    public void populateListView(){
+        //get iterator for data
+        Cursor data = mDataBaseHelperM.getData();
+        //add the data from to the arraylsit
+        ArrayList<String> listData = new ArrayList<>();
+        while(data.moveToNext()){
+            listData.add(data.getString(1));
+        }
+        //used to populate the listview
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+        mListView.setAdapter(adapter);
+    }
 
 
     @Override
@@ -78,18 +99,6 @@ public class ViewData extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.update_add:
-                System.out.println("MENU ITEM CLICKED " );
-                return true;
-            case R.id.view_data:
-                //do something
-                return true;
-            case R.id.edit:
-                //do something
-                return true;
-            case R.id.pr:
-                //do something
                 return true;
         }
         return super.onOptionsItemSelected(item);

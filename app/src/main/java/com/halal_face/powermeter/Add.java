@@ -11,16 +11,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-public class UpdateAdd extends AppCompatActivity {
+import java.util.Random;
+
+public class Add extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     Button add;
-    Button update;
+    EditText edit;
+    DataBaseHelperM mDataBaseHelperM;
+    Random rand;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.update_add);
+        setContentView(R.layout.add);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,30 +46,30 @@ public class UpdateAdd extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         Intent intent;
-                        intent = new Intent(UpdateAdd.this, MainActivity.class);
+                        intent = new Intent(Add.this, MainActivity.class);
                         switch (menuItem.getItemId()) {
                             case R.id.home:
                                 System.out.println("MENU ITEM CLICKED " +"home" );
-                                intent = new Intent(UpdateAdd.this, MainActivity.class);
+                                intent = new Intent(Add.this, MainActivity.class);
                                 break;
                             case R.id.update_add:
                                 System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(UpdateAdd.this, UpdateAdd.class);
-                                return true;
+                                intent = new Intent(Add.this, UpdateAdd.class);
+                                break;
 
                             case R.id.view_data:
                                 System.out.println("MENU ITEM CLICKED " +"view_data");
-                                intent = new Intent(UpdateAdd.this, ViewData.class);
+                                intent = new Intent(Add.this, ViewData.class);
                                 break;
 
                             case R.id.edit:
                                 System.out.println("MENU ITEM CLICKED " +"edit");
-                                intent = new Intent(UpdateAdd.this, Edit.class);
+                                intent = new Intent(Add.this, Edit.class);
                                 break;
 
                             case R.id.pr:
                                 System.out.println("MENU ITEM CLICKED " +"pr");
-                                intent = new Intent(UpdateAdd.this, Pr.class);
+                                intent = new Intent(Add.this, Pr.class);
                                 break;
                         }
                         startActivity(intent);
@@ -72,22 +78,40 @@ public class UpdateAdd extends AppCompatActivity {
                 });
 
         add = findViewById(R.id.add);
-        update = findViewById(R.id.update);
-
+        edit = findViewById(R.id.edit);
+        //get a reference to the database
+        mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
         add.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UpdateAdd.this, Add.class);
-                startActivity(intent);
+                String exercise = edit.getText().toString();
+                if(exercise!=null && !exercise.isEmpty()){
+                    AddData(exercise);
+                }else{
+                    toastM("Please enter an exercise");
+                }
 
             }
         });
 
 
+
     }
 
+    //insert into the database
+    public void AddData(String newEntry){
+        boolean insert = mDataBaseHelperM.addData(newEntry);
+        if(insert){
+            toastM("Success");
 
+        }else{
+            toastM("FAIL");
+        }
+    }
+    private void toastM(String m){
+        Toast.makeText(this, m, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
