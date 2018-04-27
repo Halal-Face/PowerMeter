@@ -61,7 +61,7 @@ public class EditDb extends AppCompatActivity {
                                 break;
                             case R.id.update_add:
                                 System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(EditDb.this, UpdateAdd.class);
+                                intent = new Intent(EditDb.this, Add.class);
                                 break;
 
                             case R.id.view_data:
@@ -84,33 +84,35 @@ public class EditDb extends AppCompatActivity {
                     }
                 });
 
-            btnUpdate = findViewById(R.id.update);
-            btnDelete = findViewById(R.id.delete);
-            editText = findViewById(R.id.edit);
-            mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
-            Intent receiveIntent = getIntent();
-            item = receiveIntent.getStringExtra("item");
-            itemID = receiveIntent.getIntExtra("id", -1);
+        btnUpdate = findViewById(R.id.update);
+        btnDelete = findViewById(R.id.delete);
+        editText = findViewById(R.id.edit);
+        mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
+        Intent receiveIntent = getIntent();
+        item = receiveIntent.getStringExtra("item");
+        itemID = receiveIntent.getIntExtra("id", -1);
 
-            editText.setText(item);
+        editText.setText(item);
+        final Intent backToEditIntent = new Intent(EditDb.this, Edit.class);
+        btnUpdate.setOnClickListener(new View.OnClickListener(){
 
-            btnUpdate.setOnClickListener(new View.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    String newItem = editText.getText().toString();
-                    if(newItem!=null && !newItem.isEmpty()){
-                        toastM("Changing " + item +" to " + newItem);
-                        mDataBaseHelperM.updateItem(newItem, itemID, item);
-                    }
+            @Override
+            public void onClick(View v) {
+                String newItem = editText.getText().toString();
+                if(newItem!=null && !newItem.isEmpty()){
+                    toastM("Changing " + item +" to " + newItem);
+                    mDataBaseHelperM.updateItem(newItem, itemID, item);
+                    startActivity(backToEditIntent);
                 }
-            });
+            }
+        });
         btnDelete.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 mDataBaseHelperM.deleteItem(itemID, item);
                 editText.setText("");
+                startActivity(backToEditIntent);
             }
         });
     }

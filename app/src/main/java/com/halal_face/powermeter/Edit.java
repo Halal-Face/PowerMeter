@@ -54,7 +54,7 @@ public class Edit extends AppCompatActivity {
                                 break;
                             case R.id.update_add:
                                 System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(Edit.this, UpdateAdd.class);
+                                intent = new Intent(Edit.this, Add.class);
                                 break;
 
                             case R.id.view_data:

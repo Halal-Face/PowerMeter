@@ -106,7 +106,7 @@ public class Add extends AppCompatActivity {
             toastM("Success");
 
         }else{
-            toastM("FAIL");
+            toastM("Exercise already exists");
         }
     }
     private void toastM(String m){

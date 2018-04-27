@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class DataBaseHelperM extends SQLiteOpenHelper {
     private static final String TAG = "DataBaseHelper";
     private static final String COL2 = "name";
@@ -34,6 +36,11 @@ public class DataBaseHelperM extends SQLiteOpenHelper {
     }
     public boolean addData(String item){
         SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + COL2 + " FROM " + TABLE_NAME +" WHERE " + COL2 + " = '" + item + "'";
+        Cursor data = db.rawQuery(query, null);
+        if(data.moveToNext()){
+            return false;
+        }
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, item);
         long result = db.insert(TABLE_NAME, null, contentValues);
