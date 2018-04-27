@@ -62,8 +62,7 @@
                         <EditText
                             android:id="@+id/edit"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="newItem" />
+                            android:layout_height="wrap_content" />
 
                         <Space
                             android:layout_width="match_parent"

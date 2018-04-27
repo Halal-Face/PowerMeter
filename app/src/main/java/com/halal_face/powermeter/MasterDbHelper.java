@@ -9,14 +9,14 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class DataBaseHelperM extends SQLiteOpenHelper {
+public class MasterDbHelper extends SQLiteOpenHelper {
     private static final String TAG = "DataBaseHelper";
     private static final String COL2 = "name";
     private static final String COL1 = "ID";
     private  final String TABLE_NAME;
     private Context context;
 
-    public DataBaseHelperM(Context context, String name) {
+    public MasterDbHelper(Context context, String name) {
         super(context, name, null, 1);
         TABLE_NAME = name;
         this.context = context;

@@ -1,6 +1,7 @@
 package com.halal_face.powermeter;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,10 +11,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Add extends AppCompatActivity {
@@ -21,8 +26,9 @@ public class Add extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     Button add;
     EditText edit;
-    DataBaseHelperM mDataBaseHelperM;
-    Random rand;
+    MasterDbHelper mMasterDbHelper;
+    ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +86,7 @@ public class Add extends AppCompatActivity {
         add = findViewById(R.id.add);
         edit = findViewById(R.id.edit);
         //get a reference to the database
-        mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
+        mMasterDbHelper = new MasterDbHelper(this, "Exercise_Database");
         add.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -88,6 +94,8 @@ public class Add extends AppCompatActivity {
                 String exercise = edit.getText().toString();
                 if(exercise!=null && !exercise.isEmpty()){
                     AddData(exercise.replaceAll(" ", "_"));
+                    finish();
+                    startActivity(getIntent());
                 }else{
                     toastM("Please enter an exercise");
                 }
@@ -95,13 +103,29 @@ public class Add extends AppCompatActivity {
             }
         });
 
+       listView = findViewById(R.id.listView);
+
+        populateListView();
 
 
     }
 
+    public void populateListView(){
+        //get iterator for data
+        Cursor data = mMasterDbHelper.getData();
+        //add the data from to the arraylsit
+        ArrayList<String> listData = new ArrayList<>();
+        while(data.moveToNext()){
+            listData.add(data.getString(1));
+        }
+        //used to populate the listview
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+        listView.setAdapter(adapter);
+    }
+
     //insert into the database
     public void AddData(String newEntry){
-        boolean insert = mDataBaseHelperM.addData(newEntry);
+        boolean insert = mMasterDbHelper.addData(newEntry);
         if(insert){
             toastM("Success");
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ViewData extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
-    DataBaseHelperM mDataBaseHelperM;
+    MasterDbHelper mMasterDbHelper;
     ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +75,14 @@ public class ViewData extends AppCompatActivity {
                     }
                 });
 
-        mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
+        mMasterDbHelper = new MasterDbHelper(this, "Exercise_Database");
         mListView = findViewById(R.id.listView);
 
         populateListView();
     }
     public void populateListView(){
         //get iterator for data
-        Cursor data = mDataBaseHelperM.getData();
+        Cursor data = mMasterDbHelper.getData();
         //add the data from to the arraylsit
         ArrayList<String> listData = new ArrayList<>();
         while(data.moveToNext()){

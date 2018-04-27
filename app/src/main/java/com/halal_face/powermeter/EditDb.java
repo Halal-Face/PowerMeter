@@ -1,7 +1,6 @@
 package com.halal_face.powermeter;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,20 +10,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class EditDb extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
-    DataBaseHelperM mDataBaseHelperM;
+    MasterDbHelper mMasterDbHelper;
     Button btnUpdate, btnDelete;
     EditText editText;
     String item;
@@ -87,12 +80,12 @@ public class EditDb extends AppCompatActivity {
         btnUpdate = findViewById(R.id.update);
         btnDelete = findViewById(R.id.delete);
         editText = findViewById(R.id.edit);
-        mDataBaseHelperM = new DataBaseHelperM(this, "Exercise_Database");
+        mMasterDbHelper = new MasterDbHelper(this, "Exercise_Database");
         Intent receiveIntent = getIntent();
         item = receiveIntent.getStringExtra("item");
         itemID = receiveIntent.getIntExtra("id", -1);
 
-        editText.setText(item);
+        editText.setHint(item);
         final Intent backToEditIntent = new Intent(EditDb.this, Edit.class);
         btnUpdate.setOnClickListener(new View.OnClickListener(){
 
@@ -101,7 +94,7 @@ public class EditDb extends AppCompatActivity {
                 String newItem = editText.getText().toString();
                 if(newItem!=null && !newItem.isEmpty()){
                     toastM("Changing " + item +" to " + newItem);
-                    mDataBaseHelperM.updateItem(newItem, itemID, item);
+                    mMasterDbHelper.updateItem(newItem, itemID, item);
                     startActivity(backToEditIntent);
                 }
             }
@@ -110,7 +103,7 @@ public class EditDb extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                mDataBaseHelperM.deleteItem(itemID, item);
+                mMasterDbHelper.deleteItem(itemID, item);
                 editText.setText("");
                 startActivity(backToEditIntent);
             }
