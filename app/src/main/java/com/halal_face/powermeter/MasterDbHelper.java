@@ -85,7 +85,7 @@ public class MasterDbHelper extends SQLiteOpenHelper {
                  COL1 + " = '" + id +"'" + " AND " + COL2 +
                 " = '" + item + "'";
         db.execSQL(query);
-        Log.d(TAG, "QUERY DELETE: " + query);
+        //Log.d(TAG, "QUERY DELETE: " + query);
     }
 
 }

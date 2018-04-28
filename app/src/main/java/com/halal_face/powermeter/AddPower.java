@@ -123,29 +123,29 @@ public class AddPower extends AppCompatActivity {
         intent = new Intent(AddPower.this, MainActivity.class);
         switch (menuItem.getItemId()) {
             case R.id.home:
-                System.out.println("MENU ITEM CLICKED " +"home" );
+                //System.out.println("MENU ITEM CLICKED " +"home" );
                 break;
             case R.id.update_add:
-                System.out.println("MENU ITEM CLICKED " +"update_add");
+                //System.out.println("MENU ITEM CLICKED " +"update_add");
                 intent = new Intent(AddPower.this, Add.class);
                 break;
 
             case R.id.view_data:
-                System.out.println("MENU ITEM CLICKED " +"view_data");
+                //System.out.println("MENU ITEM CLICKED " +"view_data");
                 intent = new Intent(AddPower.this, ViewData.class);
                 break;
 
             case R.id.edit:
-                System.out.println("MENU ITEM CLICKED " +"edit");
+                //System.out.println("MENU ITEM CLICKED " +"edit");
                 intent = new Intent(AddPower.this, Edit.class);
                 break;
 
             case R.id.pr:
-                System.out.println("MENU ITEM CLICKED " +"pr");
+                //System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(AddPower.this, Pr.class);
                 break;
             case R.id.atributions:
-                System.out.println("MENU ITEM CLICKED " +"pr");
+                //System.out.println("MENU ITEM CLICKED " +"Attributions");
                 intent = new Intent(AddPower.this, Atributions.class);
                 break;
         }

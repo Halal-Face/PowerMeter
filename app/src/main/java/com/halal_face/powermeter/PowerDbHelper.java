@@ -72,10 +72,11 @@ public class PowerDbHelper extends SQLiteOpenHelper {
                 COL1 + " = '" + id +"'" + " AND " + COL2 +
                 " = '" + item + "'";
         db.execSQL(query);
-        Log.d(TAG, "QUERY DELETE: " + query);
+        //Log.d(TAG, "QUERY DELETE: " + query);
     }
 
     public ArrayList<Integer> getXData(){
+        //Query all x data and insert into an ArrayList
         ArrayList<Integer> xNewData = new ArrayList<Integer>();
         String query = "SELECT " + COL1 + " FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -87,6 +88,7 @@ public class PowerDbHelper extends SQLiteOpenHelper {
         return xNewData;
     }
     public ArrayList<Integer> getYData(){
+        //Query all y data and insert into an ArrayList
         ArrayList<Integer> yNewData = new ArrayList<>();
         String query = "SELECT " + COL2 + " FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -101,17 +103,8 @@ public class PowerDbHelper extends SQLiteOpenHelper {
     public void updateDbName(String newName){
         SQLiteDatabase db = this.getWritableDatabase();
         PowerDbHelper newDb = new PowerDbHelper(context, newName);
-//        String query ="INSERT INTO " + newName + " SELECT * FROM " + TABLE_NAME;
-//        db.execSQL(query);
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor data = db.rawQuery(query, null);
-//        //get iterator for data
-//        Cursor data = mMasterDbHelper.getData();
-//        //add the data from to the arraylsit
-//        ArrayList<String> listData = new ArrayList<>();
-//        while(data.moveToNext()){
-//            listData.add(data.getString(1));
-//        }
         while(data.moveToNext()){
             newDb.addData(data.getInt(1));
         }

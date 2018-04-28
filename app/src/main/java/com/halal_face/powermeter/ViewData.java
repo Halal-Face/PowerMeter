@@ -99,29 +99,29 @@ public class ViewData extends AppCompatActivity {
         intent = new Intent(ViewData.this, MainActivity.class);
         switch (menuItem.getItemId()) {
             case R.id.home:
-                System.out.println("MENU ITEM CLICKED " +"home" );
+                //System.out.println("MENU ITEM CLICKED " +"home" );
                 break;
             case R.id.update_add:
-                System.out.println("MENU ITEM CLICKED " +"update_add");
+                //System.out.println("MENU ITEM CLICKED " +"update_add");
                 intent = new Intent(ViewData.this, Add.class);
                 break;
 
             case R.id.view_data:
-                System.out.println("MENU ITEM CLICKED " +"view_data");
+                //System.out.println("MENU ITEM CLICKED " +"view_data");
                 intent = new Intent(ViewData.this, ViewData.class);
                 break;
 
             case R.id.edit:
-                System.out.println("MENU ITEM CLICKED " +"edit");
+                //System.out.println("MENU ITEM CLICKED " +"edit");
                 intent = new Intent(ViewData.this, Edit.class);
                 break;
 
             case R.id.pr:
-                System.out.println("MENU ITEM CLICKED " +"pr");
+                //System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(ViewData.this, Pr.class);
                 break;
             case R.id.atributions:
-                System.out.println("MENU ITEM CLICKED " +"pr");
+               //System.out.println("MENU ITEM CLICKED " +"Attributions");
                 intent = new Intent(ViewData.this, Atributions.class);
                 break;
         }

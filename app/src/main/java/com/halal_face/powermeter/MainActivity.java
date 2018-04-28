@@ -1,6 +1,7 @@
 package com.halal_face.powermeter;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +9,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -37,7 +41,12 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         description = findViewById(R.id.description);
-        description.setText("PowerMeter is an app designed to track the relative power exerted over time when exercising. Currently only exercises that are quantifiable by weight and sets are supported.");
+        String htmlText = "PowerMeter is an app designed to track the relative power exerted over time when exercising. " +
+                "Currently only exercises that are quantifiable by weight and sets are supported. " +
+                "This app is open sourced and can be found at <a href='https://github.com/Halal-Face/PowerMeter'>github.com/Halal-Face</a>";
+        description.setText(setHtml(htmlText));
+        description.setMovementMethod(LinkMovementMethod.getInstance());
+
 
     }
 
@@ -74,29 +83,29 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(MainActivity.this, MainActivity.class);
         switch (menuItem.getItemId()) {
             case R.id.home:
-                System.out.println("MENU ITEM CLICKED " +"home" );
+                //System.out.println("MENU ITEM CLICKED " +"home" );
                 break;
             case R.id.update_add:
-                System.out.println("MENU ITEM CLICKED " +"update_add");
+                //System.out.println("MENU ITEM CLICKED " +"update_add");
                 intent = new Intent(MainActivity.this, Add.class);
                 break;
 
             case R.id.view_data:
-                System.out.println("MENU ITEM CLICKED " +"view_data");
+                //System.out.println("MENU ITEM CLICKED " +"view_data");
                 intent = new Intent(MainActivity.this, ViewData.class);
                 break;
 
             case R.id.edit:
-                System.out.println("MENU ITEM CLICKED " +"edit");
+                //System.out.println("MENU ITEM CLICKED " +"edit");
                 intent = new Intent(MainActivity.this, Edit.class);
                 break;
 
             case R.id.pr:
-                System.out.println("MENU ITEM CLICKED " +"pr");
+                //System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(MainActivity.this, Pr.class);
                 break;
             case R.id.atributions:
-                System.out.println("MENU ITEM CLICKED " +"pr");
+                //System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(MainActivity.this, Atributions.class);
                 break;
         }
@@ -104,4 +113,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
+    public Spanned setHtml(String html){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(html);
+        }
+    }
 }
