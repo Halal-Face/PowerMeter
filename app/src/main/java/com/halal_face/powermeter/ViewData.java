@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -77,8 +79,26 @@ public class ViewData extends AppCompatActivity {
 
         mMasterDbHelper = new MasterDbHelper(this, "Exercise_Database");
         mListView = findViewById(R.id.listView);
-
         populateListView();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                Cursor data = mMasterDbHelper.getItemID(item);
+                int itemID = -1;
+                while(data.moveToNext()){
+                    itemID = data.getInt(0);
+                }
+                if(itemID>-1){
+                    Intent editDbIntent = new Intent(ViewData.this, GraphData.class);
+                    editDbIntent.putExtra("TABLE_NAME", item);
+                    startActivity(editDbIntent);
+
+                }
+            }
+        });
     }
     public void populateListView(){
         //get iterator for data

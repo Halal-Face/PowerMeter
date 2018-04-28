@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -94,6 +95,7 @@ public class Add extends AppCompatActivity {
                 String exercise = edit.getText().toString();
                 if(exercise!=null && !exercise.isEmpty()){
                     AddData(exercise.replaceAll(" ", "_"));
+                    PowerDbHelper pPowerDbHelper = new PowerDbHelper(Add.this, exercise.replaceAll(" ", "_"));
                     finish();
                     startActivity(getIntent());
                 }else{
@@ -104,8 +106,26 @@ public class Add extends AppCompatActivity {
         });
 
        listView = findViewById(R.id.listView);
-
         populateListView();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                Cursor data = mMasterDbHelper.getItemID(item);
+                int itemID = -1;
+                while(data.moveToNext()){
+                    itemID = data.getInt(0);
+                }
+                if(itemID>-1){
+                    Intent AddPowerIntent = new Intent(Add.this, AddPower.class);
+                    AddPowerIntent.putExtra("TABLE_NAME", item);
+                    startActivity(AddPowerIntent);
+
+                }
+            }
+        });
 
 
     }

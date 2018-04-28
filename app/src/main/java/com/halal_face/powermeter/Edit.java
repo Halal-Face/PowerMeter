@@ -122,18 +122,6 @@ public class Edit extends AppCompatActivity {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            case R.id.update_add:
-                System.out.println("MENU ITEM CLICKED " );
-                return true;
-            case R.id.view_data:
-                //do something
-                return true;
-            case R.id.edit:
-                //do something
-                return true;
-            case R.id.pr:
-                //do something
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }

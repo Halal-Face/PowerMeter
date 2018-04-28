@@ -34,6 +34,12 @@
         <activity android:name=".EditDb">
 
         </activity>
+        <activity android:name=".AddPower">
+
+        </activity>
+        <activity android:name=".GraphData">
+
+        </activity>
 
     </application>
 

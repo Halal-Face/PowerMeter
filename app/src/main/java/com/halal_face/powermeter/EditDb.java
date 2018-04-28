@@ -105,6 +105,7 @@ public class EditDb extends AppCompatActivity {
             public void onClick(View v) {
                 mMasterDbHelper.deleteItem(itemID, item);
                 editText.setText("");
+                EditDb.this.deleteDatabase(item);
                 startActivity(backToEditIntent);
             }
         });

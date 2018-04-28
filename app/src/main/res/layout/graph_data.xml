@@ -10,9 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,33 +48,15 @@
                             android:layout_height="wrap_content"
 
                             android:fontFamily="@font/ubuntu_light"
-                            android:text="Add An Exercise"
+                            android:text="Your Progress"
                             android:textAlignment="center"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="30sp"
                             tools:layout_editor_absoluteX="162dp"
                             tools:layout_editor_absoluteY="0dp" />
 
-                        <EditText
-                            android:id="@+id/edit"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            />
-
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp" />
-
-                        <Button
-                            android:id="@+id/add"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:text="Add" />
-
-                        <ListView
-                            android:id="@+id/listView"
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/barChart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
