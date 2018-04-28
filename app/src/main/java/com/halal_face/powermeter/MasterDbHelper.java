@@ -64,12 +64,20 @@ public class MasterDbHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public void updateItem(String newItem, int id, String oldItem){
+    public boolean updateItem(String newItem, int id, String oldItem){
         SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryCheck = "SELECT " + COL2 + " FROM " + TABLE_NAME +" WHERE " + COL2 + " = '" + newItem + "'";
+        Cursor data = db.rawQuery(queryCheck, null);
+        if(data.moveToNext()){
+            return false;
+        }
+
         String query = "UPDATE " + TABLE_NAME + " SET " + COL2 +
                 " = '" + newItem +"' WHERE " + COL1 + " = '" +
                 id + "' AND " + COL2 + " = '" + oldItem + "'";
         db.execSQL(query);
+        return true;
     }
     public void deleteItem(int id, String item){
         SQLiteDatabase db = this.getWritableDatabase();

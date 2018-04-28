@@ -9,10 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
+    TextView description;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,53 +32,12 @@ public class MainActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
-
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
-                        //System.out.println("MENU ITEM CLICKED " +menuItem.getGroupId());
-
-//                        Intent intent = new Intent(this, DisplayMessageActivity.class);
-//                        EditText editText = (EditText) findViewById(R.id.editText);
-//                        String message = editText.getText().toString();
-//                        intent.putExtra(EXTRA_MESSAGE, message);
-//                        startActivity(intent);
-                        Intent intent;
-                        intent = new Intent(MainActivity.this, MainActivity.class);
-                        switch (menuItem.getItemId()) {
-                            case R.id.home:
-                                System.out.println("MENU ITEM CLICKED " +"home" );
-                                break;
-                            case R.id.update_add:
-                                System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(MainActivity.this, Add.class);
-                                break;
-
-                            case R.id.view_data:
-                                System.out.println("MENU ITEM CLICKED " +"view_data");
-                                intent = new Intent(MainActivity.this, ViewData.class);
-                                break;
-
-                            case R.id.edit:
-                                System.out.println("MENU ITEM CLICKED " +"edit");
-                                intent = new Intent(MainActivity.this, Edit.class);
-                                break;
-
-                            case R.id.pr:
-                                System.out.println("MENU ITEM CLICKED " +"pr");
-                                intent = new Intent(MainActivity.this, Pr.class);
-                                break;
-                        }
-                        startActivity(intent);
-                        return true;
+                        return nav(menuItem);
                     }
                 });
 
-
+        description = findViewById(R.id.description);
+        description.setText("PowerMeter is an app designed to track the relative power exerted over time when exercising. Currently only exercises that are quantifiable by weight and sets are supported.");
 
     }
 
@@ -102,6 +63,41 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean nav(MenuItem menuItem){
+        // set item as selected to persist highlight
+        menuItem.setChecked(true);
+        // close drawer when item is tapped
+        mDrawerLayout.closeDrawers();
+        Intent intent;
+        intent = new Intent(MainActivity.this, MainActivity.class);
+        switch (menuItem.getItemId()) {
+            case R.id.home:
+                System.out.println("MENU ITEM CLICKED " +"home" );
+                break;
+            case R.id.update_add:
+                System.out.println("MENU ITEM CLICKED " +"update_add");
+                intent = new Intent(MainActivity.this, Add.class);
+                break;
+
+            case R.id.view_data:
+                System.out.println("MENU ITEM CLICKED " +"view_data");
+                intent = new Intent(MainActivity.this, ViewData.class);
+                break;
+
+            case R.id.edit:
+                System.out.println("MENU ITEM CLICKED " +"edit");
+                intent = new Intent(MainActivity.this, Edit.class);
+                break;
+
+            case R.id.pr:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(MainActivity.this, Pr.class);
+                break;
+        }
+        startActivity(intent);
+        return true;
     }
 
 }

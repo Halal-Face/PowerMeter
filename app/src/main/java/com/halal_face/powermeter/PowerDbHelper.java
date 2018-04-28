@@ -98,4 +98,23 @@ public class PowerDbHelper extends SQLiteOpenHelper {
         return yNewData;
     }
 
+    public void updateDbName(String newName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        PowerDbHelper newDb = new PowerDbHelper(context, newName);
+//        String query ="INSERT INTO " + newName + " SELECT * FROM " + TABLE_NAME;
+//        db.execSQL(query);
+        String query = "SELECT * FROM " + TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+//        //get iterator for data
+//        Cursor data = mMasterDbHelper.getData();
+//        //add the data from to the arraylsit
+//        ArrayList<String> listData = new ArrayList<>();
+//        while(data.moveToNext()){
+//            listData.add(data.getString(1));
+//        }
+        while(data.moveToNext()){
+            newDb.addData(data.getInt(1));
+        }
+    }
+
 }

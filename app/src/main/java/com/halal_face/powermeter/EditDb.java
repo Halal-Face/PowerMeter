@@ -18,6 +18,7 @@ public class EditDb extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     MasterDbHelper mMasterDbHelper;
+    PowerDbHelper pPowerDbHelper;
     Button btnUpdate, btnDelete;
     EditText editText;
     String item;
@@ -40,40 +41,7 @@ public class EditDb extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
-
-                        Intent intent;
-                        intent = new Intent(EditDb.this, MainActivity.class);
-                        switch (menuItem.getItemId()) {
-                            case R.id.home:
-                                System.out.println("MENU ITEM CLICKED " +"home" );
-                                intent = new Intent(EditDb.this, MainActivity.class);
-                                break;
-                            case R.id.update_add:
-                                System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(EditDb.this, Add.class);
-                                break;
-
-                            case R.id.view_data:
-                                System.out.println("MENU ITEM CLICKED " +"view_data");
-                                intent = new Intent(EditDb.this, ViewData.class);
-                                break;
-
-                            case R.id.edit:
-                                System.out.println("MENU ITEM CLICKED " +"edit");
-                                intent = new Intent(EditDb.this, Edit.class);
-                                break;
-
-                            case R.id.pr:
-                                System.out.println("MENU ITEM CLICKED " +"pr");
-                                intent = new Intent(EditDb.this, Pr.class);
-                                break;
-                        }
-                        startActivity(intent);
-                        return true;
+                        return nav(menuItem);
                     }
                 });
 
@@ -94,7 +62,12 @@ public class EditDb extends AppCompatActivity {
                 String newItem = editText.getText().toString();
                 if(newItem!=null && !newItem.isEmpty()){
                     toastM("Changing " + item +" to " + newItem);
-                    mMasterDbHelper.updateItem(newItem, itemID, item);
+                    if(mMasterDbHelper.updateItem(newItem, itemID, item)) {
+
+                        pPowerDbHelper = new PowerDbHelper(EditDb.this, item);
+                        pPowerDbHelper.updateDbName(newItem);
+                        EditDb.this.deleteDatabase(item);
+                    }
                     startActivity(backToEditIntent);
                 }
             }
@@ -124,6 +97,40 @@ public class EditDb extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public boolean nav(MenuItem menuItem){
+        // set item as selected to persist highlight
+        menuItem.setChecked(true);
+        // close drawer when item is tapped
+        mDrawerLayout.closeDrawers();
+        Intent intent;
+        intent = new Intent(EditDb.this, MainActivity.class);
+        switch (menuItem.getItemId()) {
+            case R.id.home:
+                System.out.println("MENU ITEM CLICKED " +"home" );
+                break;
+            case R.id.update_add:
+                System.out.println("MENU ITEM CLICKED " +"update_add");
+                intent = new Intent(EditDb.this, Add.class);
+                break;
+
+            case R.id.view_data:
+                System.out.println("MENU ITEM CLICKED " +"view_data");
+                intent = new Intent(EditDb.this, ViewData.class);
+                break;
+
+            case R.id.edit:
+                System.out.println("MENU ITEM CLICKED " +"edit");
+                intent = new Intent(EditDb.this, Edit.class);
+                break;
+
+            case R.id.pr:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(EditDb.this, Pr.class);
+                break;
+        }
+        startActivity(intent);
+        return true;
     }
 
 }

@@ -62,31 +62,30 @@
                         <EditText
                             android:id="@+id/edit"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp"/>
 
                         <Space
                             android:layout_width="match_parent"
-                            android:layout_height="110dp" />
+                            android:layout_height="85dp" />
 
                         <Button
                             android:id="@+id/update"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Update" />
+                            android:text="Update"
+                            android:layout_margin="20dp"/>
 
                         <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="110dp" />
+                            android:layout_width="398dp"
+                            android:layout_height="58dp" />
 
                         <Button
                             android:id="@+id/delete"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Delete" />
-
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp" />
+                            android:text="Delete"
+                            android:layout_margin="20dp"/>
 
                     </LinearLayout>
 

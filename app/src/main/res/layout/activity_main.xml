@@ -55,6 +55,16 @@
                             tools:layout_editor_absoluteX="162dp"
                             tools:layout_editor_absoluteY="0dp" />
 
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp"/>
+
                     </LinearLayout>
 
                 </FrameLayout>

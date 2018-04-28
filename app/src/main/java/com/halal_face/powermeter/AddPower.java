@@ -56,9 +56,9 @@ public class AddPower extends AppCompatActivity {
                 listView = findViewById(R.id.listView);
                 addPower = findViewById(R.id.add);
                 editWeight = findViewById(R.id.plate);
-                editWeight.setHint("Weight of Plate");
+                editWeight.setHint("Total Weight");
                 editSet = findViewById(R.id.set);
-                editSet.setHint("Number of Sets");
+                editSet.setHint("Total Sets");
 
                 Intent receiveIntent= getIntent();
                 TABLE_NAME = receiveIntent.getStringExtra("TABLE_NAME");
@@ -72,14 +72,18 @@ public class AddPower extends AppCompatActivity {
                 addPower.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        weight = Integer.parseInt(editWeight.getText().toString());
-                        sets = Integer.parseInt(editSet.getText().toString());
-                        power = weight*sets;
-                        if(power>-1 && power !=0){
-                            toastM("Adding " + power +" to " + TABLE_NAME);
-                            pPowerDbHelper.addData(power);
-                            finish();
-                            startActivity(getIntent());
+                        if(!editSet.getText().toString().matches("") && editSet.getText().toString()!=null && !editWeight.getText().toString().matches("") && editWeight.getText().toString()!=null){
+                            weight = Integer.parseInt(editWeight.getText().toString());
+                            sets = Integer.parseInt(editSet.getText().toString());
+                            power = weight * sets;
+                            if(power>-1 && weight>-1 && sets>-1) {
+                                toastM("Adding " + power + " to " + TABLE_NAME);
+                                pPowerDbHelper.addData(power);
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        }else{
+                            toastM("Please Enter Valid Weight and Set Values");
                         }
                     }
                 });

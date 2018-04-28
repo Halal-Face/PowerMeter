@@ -47,45 +47,13 @@ public class Add extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
-
-                        Intent intent;
-                        intent = new Intent(Add.this, MainActivity.class);
-                        switch (menuItem.getItemId()) {
-                            case R.id.home:
-                                System.out.println("MENU ITEM CLICKED " +"home" );
-                                intent = new Intent(Add.this, MainActivity.class);
-                                break;
-                            case R.id.update_add:
-                                System.out.println("MENU ITEM CLICKED " +"update_add");
-                                intent = new Intent(Add.this, UpdateAdd.class);
-                                break;
-
-                            case R.id.view_data:
-                                System.out.println("MENU ITEM CLICKED " +"view_data");
-                                intent = new Intent(Add.this, ViewData.class);
-                                break;
-
-                            case R.id.edit:
-                                System.out.println("MENU ITEM CLICKED " +"edit");
-                                intent = new Intent(Add.this, Edit.class);
-                                break;
-
-                            case R.id.pr:
-                                System.out.println("MENU ITEM CLICKED " +"pr");
-                                intent = new Intent(Add.this, Pr.class);
-                                break;
-                        }
-                        startActivity(intent);
-                        return true;
+                        return nav(menuItem);
                     }
                 });
 
         add = findViewById(R.id.add);
         edit = findViewById(R.id.edit);
+        edit.setHint("Enter Name of Exercise");
         //get a reference to the database
         mMasterDbHelper = new MasterDbHelper(this, "Exercise_Database");
         add.setOnClickListener(new View.OnClickListener(){
@@ -177,6 +145,40 @@ public class Add extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public boolean nav(MenuItem menuItem){
+        // set item as selected to persist highlight
+        menuItem.setChecked(true);
+        // close drawer when item is tapped
+        mDrawerLayout.closeDrawers();
+        Intent intent;
+        intent = new Intent(Add.this, MainActivity.class);
+        switch (menuItem.getItemId()) {
+            case R.id.home:
+                System.out.println("MENU ITEM CLICKED " +"home" );
+                break;
+            case R.id.update_add:
+                System.out.println("MENU ITEM CLICKED " +"update_add");
+                intent = new Intent(Add.this, Add.class);
+                break;
+
+            case R.id.view_data:
+                System.out.println("MENU ITEM CLICKED " +"view_data");
+                intent = new Intent(Add.this, ViewData.class);
+                break;
+
+            case R.id.edit:
+                System.out.println("MENU ITEM CLICKED " +"edit");
+                intent = new Intent(Add.this, Edit.class);
+                break;
+
+            case R.id.pr:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(Add.this, Pr.class);
+                break;
+        }
+        startActivity(intent);
+        return true;
     }
 
 }

@@ -70,7 +70,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:ems="10"
-                                android:inputType="number" />
+                                android:inputType="number"
+                                android:layout_margin="20dp"/>
 
                             <EditText
                                 android:id="@+id/set"
@@ -78,7 +79,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:ems="10"
-                                android:inputType="number" />
+                                android:inputType="number"
+                                android:layout_margin="20dp"/>
 
                         </LinearLayout>
 
@@ -90,12 +92,14 @@
                             android:id="@+id/add"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Add Power" />
+                            android:text="Add Power"
+                            android:layout_margin="20dp"/>
 
                         <ListView
                             android:id="@+id/listView"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:layout_margin="20dp"/>
 
                     </LinearLayout>
 
