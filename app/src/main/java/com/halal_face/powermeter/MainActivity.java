@@ -95,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(MainActivity.this, Pr.class);
                 break;
+            case R.id.atributions:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(MainActivity.this, Atributions.class);
+                break;
         }
         startActivity(intent);
         return true;

@@ -161,6 +161,10 @@ public class GraphData extends AppCompatActivity {
                 System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(GraphData.this, Pr.class);
                 break;
+            case R.id.atributions:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(GraphData.this, Atributions.class);
+                break;
         }
         startActivity(intent);
         return true;

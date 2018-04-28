@@ -120,6 +120,10 @@ public class ViewData extends AppCompatActivity {
                 System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(ViewData.this, Pr.class);
                 break;
+            case R.id.atributions:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(ViewData.this, Atributions.class);
+                break;
         }
         startActivity(intent);
         return true;

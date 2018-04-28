@@ -40,6 +40,9 @@
         <activity android:name=".GraphData">
 
         </activity>
+        <activity android:name=".Atributions">
+
+        </activity>
 
     </application>
 

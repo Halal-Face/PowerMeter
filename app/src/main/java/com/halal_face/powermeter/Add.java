@@ -176,6 +176,10 @@ public class Add extends AppCompatActivity {
                 System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(Add.this, Pr.class);
                 break;
+            case R.id.atributions:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(Add.this, Atributions.class);
+                break;
         }
         startActivity(intent);
         return true;

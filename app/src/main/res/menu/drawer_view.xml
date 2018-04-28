@@ -26,5 +26,10 @@
             android:icon="@drawable/ic_launcher_foreground"
             android:fontFamily="@font/ubuntu_light"
             android:title="PR's" />
+        <item
+            android:id="@+id/atributions"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:fontFamily="@font/ubuntu_light"
+            android:title="Atributions" />
     </group>
 </menu>

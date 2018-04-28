@@ -107,6 +107,10 @@ public class UpdateAdd extends AppCompatActivity {
                 System.out.println("MENU ITEM CLICKED " +"pr");
                 intent = new Intent(UpdateAdd.this, Pr.class);
                 break;
+            case R.id.atributions:
+                System.out.println("MENU ITEM CLICKED " +"pr");
+                intent = new Intent(UpdateAdd.this, Atributions.class);
+                break;
         }
         startActivity(intent);
         return true;

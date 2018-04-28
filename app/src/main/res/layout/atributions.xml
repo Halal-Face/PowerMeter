@@ -48,18 +48,31 @@
                             android:layout_height="wrap_content"
 
                             android:fontFamily="@font/ubuntu_light"
-                            android:text="Personal Record Tracker"
+                            android:text="PowerMeter"
                             android:textAlignment="center"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="30sp"
                             tools:layout_editor_absoluteX="162dp"
                             tools:layout_editor_absoluteY="0dp" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/mpandroid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:layout_margin="20dp"/>
+
                         <TextView
                             android:id="@+id/icons8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Coming soon"
+                            android:text=""
                             android:layout_margin="20dp"/>
+
                     </LinearLayout>
 
                 </FrameLayout>
