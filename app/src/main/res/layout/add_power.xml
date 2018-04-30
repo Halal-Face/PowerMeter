@@ -71,8 +71,18 @@
                                 android:layout_weight="1"
                                 android:ems="10"
                                 android:inputType="number"
-                                android:layout_margin="20dp"/>
+                                android:hint="#Weights"
+                                android:layout_margin="5dp"/>
 
+                            <EditText
+                                android:id="@+id/rep"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="number"
+                                android:hint="#Reps"
+                                android:layout_margin="5dp"/>
                             <EditText
                                 android:id="@+id/set"
                                 android:layout_width="match_parent"
@@ -80,8 +90,33 @@
                                 android:layout_weight="1"
                                 android:ems="10"
                                 android:inputType="number"
-                                android:layout_margin="20dp"/>
+                                android:hint="#Sets"
+                                android:layout_margin="5dp"/>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:hint="DATE:YYYMMDD"
+                                android:inputType="number" />
+
+                            <Button
+                                android:id="@+id/today"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:text="Todays Date" />
                         </LinearLayout>
 
                         <Space

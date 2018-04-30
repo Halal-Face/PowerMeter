@@ -18,7 +18,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AddPower extends AppCompatActivity {
 
@@ -26,12 +28,19 @@ public class AddPower extends AppCompatActivity {
     PowerDbHelper pPowerDbHelper;
     ListView listView;
     Button addPower;
+    Button todaysDate;
     EditText editWeight;
+    EditText editRep;
     EditText editSet;
+    EditText editDate;
     String TABLE_NAME;
     int weight;
+    int reps;
     int sets;
+    int date;
     int power;
+    private final int minDate = 20170000;
+    private int maxDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +63,14 @@ public class AddPower extends AppCompatActivity {
                 });
 
                 listView = findViewById(R.id.listView);
+
                 addPower = findViewById(R.id.add);
+                todaysDate = findViewById(R.id.today);
+
                 editWeight = findViewById(R.id.plate);
-                editWeight.setHint("Total Weight");
+                editRep = findViewById(R.id.rep);
                 editSet = findViewById(R.id.set);
-                editSet.setHint("Total Sets");
+                editDate = findViewById(R.id.date);
 
                 Intent receiveIntent= getIntent();
                 TABLE_NAME = receiveIntent.getStringExtra("TABLE_NAME");
@@ -68,25 +80,61 @@ public class AddPower extends AppCompatActivity {
 
                 populateListView();
 
+                 SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+                 //System.out.println(f.format(new Date()));
+                maxDate = Integer.parseInt(f.format(new Date()));
+                //System.out.println("DATE: "+ maxDate);
+
+                todaysDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editDate.setText(""+maxDate);
+                    }
+                });
+
 
                 addPower.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!editSet.getText().toString().matches("") && editSet.getText().toString()!=null && !editWeight.getText().toString().matches("") && editWeight.getText().toString()!=null){
+                        if(
+                                !editSet.getText().toString().matches("")
+                                && editSet.getText().toString()!=null
+                                && !editWeight.getText().toString().matches("")
+                                && editWeight.getText().toString()!=null
+                                && !editDate.getText().toString().matches("")
+                                && editDate.getText().toString()!=null
+                                && !editRep.getText().toString().matches("")
+                                && editRep.getText().toString()!=null)
+                        {
+                            date = Integer.parseInt(editDate.getText().toString());
                             weight = Integer.parseInt(editWeight.getText().toString());
+                            reps = Integer.parseInt(editRep.getText().toString());
                             sets = Integer.parseInt(editSet.getText().toString());
-                            power = weight * sets;
-                            if(power>-1 && weight>-1 && sets>-1) {
+                            power = weight * sets * reps;
+                            if(power>0 && weight>0 && sets>0 && reps >0 && date>=minDate && date<=maxDate) {
                                 toastM("Adding " + power + " to " + TABLE_NAME);
-                                pPowerDbHelper.addData(power);
-                                finish();
-                                startActivity(getIntent());
+                                pPowerDbHelper.addData(power, date);
+                                editWeight.setText("");
+                                editRep.setText("");
+                                editSet.setText("");
+                                //finish();
+                                //startActivity(getIntent());
+                            }
+                            else if(power<=0 && weight<=0 && sets<=0 && reps <=0){
+                                toastM("Workout values cannot be zero or negative!");
+                            }
+                            else if(date <minDate){
+                                toastM("Date cannot be smaller than 20170000!");
+                            }
+                            else if(date>maxDate){
+                                toastM("Date cannot be larger than the current date");
                             }
                         }else{
                             toastM("Please Enter Valid Weight and Set Values");
                         }
                     }
                 });
+
     }
 
 
@@ -152,8 +200,10 @@ public class AddPower extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
+
     private void toastM(String m){
         Toast.makeText(this, m, Toast.LENGTH_SHORT).show();
     }
+
 
 }
