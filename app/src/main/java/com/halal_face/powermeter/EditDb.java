@@ -59,13 +59,13 @@ public class EditDb extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String newItem = editText.getText().toString();
+                String newItem = editText.getText().toString().replaceAll(" ", "_");
                 if(newItem!=null && !newItem.isEmpty()){
                     toastM("Changing " + item +" to " + newItem);
                     if(mMasterDbHelper.updateItem(newItem, itemID, item)) {
 
                         pPowerDbHelper = new PowerDbHelper(EditDb.this, item);
-                        pPowerDbHelper.updateDbName(newItem);
+                        pPowerDbHelper.updateDbName(newItem.replaceAll(" ", "_"));
                         EditDb.this.deleteDatabase(item);
                     }
                     startActivity(backToEditIntent);
