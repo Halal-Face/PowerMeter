@@ -76,14 +76,16 @@ public class GraphData extends AppCompatActivity {
         BarDataSet dataSet = new BarDataSet(entries, "Relative Power");
         dataSet.setColor(Color.parseColor("#FF9683"));
         dataSet.setValueTextColor(Color.parseColor("#FF775F"));
-        dataSet.setDrawValues(false);
+        dataSet.setDrawValues(true);
         BarData barData = new BarData(dataSet);
         barChart.setData(barData);
         barChart.setTouchEnabled(false);
         barChart.invalidate();
         Description description = new Description();
+
         description.setText("");
         barChart.setDescription(description);
+
         YAxis yLeft = barChart.getAxisLeft();
         YAxis yRight = barChart.getAxisRight();
         XAxis xAxis = barChart.getXAxis();

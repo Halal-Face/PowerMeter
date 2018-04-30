@@ -118,6 +118,7 @@ public class AddPower extends AppCompatActivity {
                                 editWeight.setText("");
                                 editRep.setText("");
                                 editSet.setText("");
+                                populateListView();
                                 //finish();
                                 //startActivity(getIntent());
                             }
