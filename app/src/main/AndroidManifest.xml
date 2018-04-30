@@ -40,6 +40,9 @@
         <activity android:name=".Atributions">
 
         </activity>
+        <activity android:name=".EditPower">
+
+        </activity>
 
     </application>
 

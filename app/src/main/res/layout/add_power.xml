@@ -53,7 +53,8 @@
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="30sp"
                             tools:layout_editor_absoluteX="162dp"
-                            tools:layout_editor_absoluteY="0dp" />
+                            tools:layout_editor_absoluteY="0dp"
+                            android:layout_margin="20dp"/>
 
                         <Space
                             android:layout_width="match_parent"
@@ -128,6 +129,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Add Power"
+                            android:layout_margin="20dp"/>
+
+                        <TextView
+                            android:id="@+id/editPower"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu_light"
+                            android:text="Edit Previous Values"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat"
+                            android:textSize="30sp"
+                            tools:layout_editor_absoluteX="162dp"
+                            tools:layout_editor_absoluteY="0dp"
                             android:layout_margin="20dp"/>
 
                         <ListView

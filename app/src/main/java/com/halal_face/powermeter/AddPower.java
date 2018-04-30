@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -135,6 +136,31 @@ public class AddPower extends AppCompatActivity {
                     }
                 });
 
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                int date = Integer.parseInt(item.substring(6, 14));
+                System.out.println("DATE: substring !!" + date +"!!");
+
+                Cursor data = pPowerDbHelper.getItemID(date);
+                System.out.println("NAME: " + pPowerDbHelper.getTABLE_NAME());
+                int itemID = -1;
+                if(data.moveToNext()){
+                    itemID = data.getInt(0);
+                }
+                if(itemID>-1){
+                    String TABLE_NAME = pPowerDbHelper.getTABLE_NAME();
+                    Intent editPowerIntent = new Intent(AddPower.this, EditPower.class);
+                    editPowerIntent.putExtra("id", itemID);
+                    editPowerIntent.putExtra("TABLE_NAME", TABLE_NAME);
+                    startActivity(editPowerIntent);
+
+                }
+            }
+        });
+
     }
 
 
@@ -155,7 +181,7 @@ public class AddPower extends AppCompatActivity {
         //add the data from to the arraylsit
         ArrayList<String> listData = new ArrayList<>();
         while(data.moveToNext()){
-            listData.add(data.getString(1));
+            listData.add( "Date: " + data.getString(2)+ " Power: "+ data.getString(1));
         }
         //used to populate the listview
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);

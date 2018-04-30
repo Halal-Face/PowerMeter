@@ -65,10 +65,10 @@ public class PowerDbHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    public Cursor getItemID(String item){
+    public Cursor getItemID(int date){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + COL1 + " FROM " + TABLE_NAME +
-                " WHERE " + COL2 + " = '" + item + "'";
+                " WHERE " + COL3 + " = '" + date + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
     }
@@ -80,11 +80,24 @@ public class PowerDbHelper extends SQLiteOpenHelper {
                 id + "' AND " + COL2 + " = '" + oldItem + "'";
         db.execSQL(query);
     }
+    public void updateItem(int newItem, int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + TABLE_NAME + " SET " + COL2 +
+                " = '" + newItem +"' WHERE " + COL1 + " = '" + id +"'";
+        db.execSQL(query);
+    }
     public void deleteItem(int id, int item){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE " +
                 COL1 + " = '" + id +"'" + " AND " + COL2 +
                 " = '" + item + "'";
+        db.execSQL(query);
+        //Log.d(TAG, "QUERY DELETE: " + query);
+    }
+    public void deleteItem(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE " +
+                COL1 + " = '" + id;
         db.execSQL(query);
         //Log.d(TAG, "QUERY DELETE: " + query);
     }
@@ -122,6 +135,9 @@ public class PowerDbHelper extends SQLiteOpenHelper {
         while(data.moveToNext()){
             newDb.addData(data.getInt(1), data.getInt(2) );
         }
+    }
+    public String getTABLE_NAME(){
+        return TABLE_NAME;
     }
 
 }
