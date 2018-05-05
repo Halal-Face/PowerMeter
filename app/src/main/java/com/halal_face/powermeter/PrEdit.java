@@ -11,27 +11,30 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Pr extends AppCompatActivity {
+public class PrEdit extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
-    EditText exer;
-    ListView listView;
-    String exerName;
-    Button add;
     PrDbHelper mPrDbHelper;
+    Button btnUpdate;
+    Button btnDelete;
+    EditText editText;
+    String name;
+    int newPr = -1;
+    ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pr);
+        setContentView(R.layout.pr_edit);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,42 +52,44 @@ public class Pr extends AppCompatActivity {
                     }
                 });
 
-        mPrDbHelper = new PrDbHelper(this);
-        exer = findViewById(R.id.exerName);
+        btnUpdate = findViewById(R.id.update);
+        btnDelete = findViewById(R.id.delete);
         listView = findViewById(R.id.listView);
+        editText = findViewById(R.id.edit);
+        mPrDbHelper = new PrDbHelper(this);
         populateListView();
-        add = findViewById(R.id.add);
+        Intent receiveIntent = getIntent();
+        name = receiveIntent.getStringExtra("exerName");
 
-        add.setOnClickListener(new View.OnClickListener() {
+        editText.setHint(name);
+        final Intent backToPr = new Intent(PrEdit.this, Pr.class);
+
+        btnUpdate.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v) {
-                exerName = exer.getText().toString().replaceAll(" ", "_");
-                if(exerName!=null && !exerName.isEmpty() && !exerName.matches("")){
-                    mPrDbHelper.addData(exerName);
-                    finish();
-                    startActivity(getIntent());
+                newPr = Integer.parseInt(editText.getText().toString());
+                if(newPr>0){
+                    if(mPrDbHelper.addData(name,newPr)) {
+                        toastM("Adding new PR " + newPr +" to " + name);
+                    }
+                    startActivity(backToPr);
                 }
             }
         });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = parent.getItemAtPosition(position).toString();
-                if(name!=null && !name.matches("") && !name.isEmpty()){
-                    Intent prEditIntent = new Intent(Pr.this, PrEdit.class);
-                    prEditIntent.putExtra("exerName", name);
-                    startActivity(prEditIntent);
-
-                }
+            public void onClick(View v) {
+                mPrDbHelper.deleteItem(name);
+                editText.setText("");
+                startActivity(backToPr);
             }
         });
-
     }
 
-
-
+    private void toastM(String m){
+        Toast.makeText(this, m, Toast.LENGTH_SHORT).show();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -100,33 +105,33 @@ public class Pr extends AppCompatActivity {
         // close drawer when item is tapped
         mDrawerLayout.closeDrawers();
         Intent intent;
-        intent = new Intent(Pr.this, MainActivity.class);
+        intent = new Intent(PrEdit.this, MainActivity.class);
         switch (menuItem.getItemId()) {
             case R.id.home:
                 //System.out.println("MENU ITEM CLICKED " +"home" );
                 break;
             case R.id.update_add:
                 //System.out.println("MENU ITEM CLICKED " +"update_add");
-                intent = new Intent(Pr.this, Add.class);
+                intent = new Intent(PrEdit.this, Add.class);
                 break;
 
             case R.id.view_data:
                 //System.out.println("MENU ITEM CLICKED " +"view_data");
-                intent = new Intent(Pr.this, ViewData.class);
+                intent = new Intent(PrEdit.this, ViewData.class);
                 break;
 
             case R.id.edit:
                 //System.out.println("MENU ITEM CLICKED " +"edit");
-                intent = new Intent(Pr.this, Edit.class);
+                intent = new Intent(PrEdit.this, Edit.class);
                 break;
 
             case R.id.pr:
                 //System.out.println("MENU ITEM CLICKED " +"pr");
-                intent = new Intent(Pr.this, Pr.class);
+                intent = new Intent(PrEdit.this, Pr.class);
                 break;
             case R.id.atributions:
                 //System.out.println("MENU ITEM CLICKED " +"Attributions");
-                intent = new Intent(Pr.this, Atributions.class);
+                intent = new Intent(PrEdit.this, Atributions.class);
                 break;
         }
         startActivity(intent);
@@ -138,7 +143,7 @@ public class Pr extends AppCompatActivity {
         //add the data from to the arraylsit
         ArrayList<String> listData = new ArrayList<>();
         while(data.moveToNext()){
-            listData.add(data.getString(1));
+            listData.add(data.getString(1)+"    "+data.getInt(2));
         }
         //used to populate the listview
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);

@@ -48,51 +48,47 @@
                             android:layout_height="wrap_content"
 
                             android:fontFamily="@font/ubuntu_light"
-                            android:text="Your Personal Records"
+                            android:text="Edit"
                             android:textAlignment="center"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="30sp"
                             tools:layout_editor_absoluteX="162dp"
                             tools:layout_editor_absoluteY="0dp" />
 
-                        <LinearLayout
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp" />
+
+                        <EditText
+                            android:id="@+id/edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="20dp"
+                            android:inputType="number"
+                            />
 
-                            <EditText
-                                android:id="@+id/exerName"
-                                android:hint="Exercise Name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:inputType="textPersonName"
-                                android:layout_margin="20dp"/>
+                        <Space
+                            android:layout_width="408dp"
+                            android:layout_height="23dp" />
 
-                        </LinearLayout>
-
-                        <LinearLayout
+                        <Button
+                            android:id="@+id/update"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/add"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Add Exercise to Track"
-                                android:layout_margin="20dp"/>
-                        </LinearLayout>
+                            android:text="Update"
+                            android:layout_margin="20dp"/>
+                        <Button
+                            android:id="@+id/delete"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Delete Exercise"
+                            android:layout_margin="20dp"/>
 
                         <ListView
                             android:id="@+id/listView"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="20dp">
+                            android:layout_height="match_parent" />
 
-                        </ListView>
                     </LinearLayout>
 
                 </FrameLayout>

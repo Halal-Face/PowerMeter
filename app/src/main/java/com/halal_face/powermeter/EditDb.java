@@ -19,6 +19,7 @@ public class EditDb extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     MasterDbHelper mMasterDbHelper;
     PowerDbHelper pPowerDbHelper;
+    PrDbHelper mPrDbHelper;
     Button btnUpdate, btnDelete;
     EditText editText;
     String item;
@@ -63,9 +64,10 @@ public class EditDb extends AppCompatActivity {
                 if(newItem!=null && !newItem.isEmpty()){
                     toastM("Changing " + item +" to " + newItem);
                     if(mMasterDbHelper.updateItem(newItem, itemID, item)) {
-
                         pPowerDbHelper = new PowerDbHelper(EditDb.this, item);
                         pPowerDbHelper.updateDbName(newItem.replaceAll(" ", "_"));
+                        //mPrDbHelper = new PrDbHelper(EditDb.this);
+                        //mPrDbHelper.updateExerName(item, newItem.replaceAll(" ", "_"));
                         EditDb.this.deleteDatabase(item);
                     }
                     startActivity(backToEditIntent);
