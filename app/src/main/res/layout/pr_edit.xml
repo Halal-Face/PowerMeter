@@ -46,7 +46,6 @@
                             android:id="@+id/textView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
                             android:fontFamily="@font/ubuntu_light"
                             android:text="Edit"
                             android:textAlignment="center"
